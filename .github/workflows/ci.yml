@@ -65,6 +65,13 @@ jobs:
     - name: set node-gyp path
       run: npm config set node_gyp "${{ steps.node-gyp-path.outputs.path }}"
 
+    - name: set node-gyp path 2
+      run: |
+        $NpmPrefix = npm prefix
+        $NodeGypPath = $NpmPrefix + "/node_modules/node-gyp/bin/node-gyp.js"
+        echo $NodeGypPath
+        npm config set node_gyp $NodeGypPath
+
     - name: install dependencies
       run: yarn --frozen-lockfile
 
