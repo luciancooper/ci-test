@@ -43,10 +43,9 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-yarn-
 
-    - name: install windows build tools
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
       if: matrix.os == 'windows-latest'
-      shell: powershell
-      run: winget install -e --id Microsoft.VisualStudio.2019.BuildTools
 
     - name: install dependencies
       run: yarn --frozen-lockfile
