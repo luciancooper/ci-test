@@ -47,7 +47,7 @@ jobs:
       if: matrix.os == 'windows-latest'
       shell: powershell
       run: |
-        yarn global add windows-build-tools --vs2015
+        npm install --global windows-build-tools@4.0.0
 
     - name: install dependencies
       run: yarn --frozen-lockfile
