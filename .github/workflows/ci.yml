@@ -43,16 +43,14 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-yarn-
 
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.1
+    - name: Update node-gyp
       if: matrix.os == 'windows-latest'
-
-    - name: set npm config on windows
-      if: matrix.os == 'windows-latest'
-      shell: powershell
       run: |
-        npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
-        npm config set msvs_version 2017
+        $WhereNode = Get-Command node | Select-Object -ExpandProperty Definition
+        $NodeDirPath = Split-Path $WhereNode -Parent
+        $NodeModulesPath = $NodeDirPath + "\node_modules\npm\node_modules\npm-lifecycle"
+        cd $NodeModulesPath
+        npm install node-gyp@latest
 
     - name: install dependencies
       run: yarn --frozen-lockfile
