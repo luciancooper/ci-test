@@ -45,8 +45,7 @@ jobs:
 
     - name: Set node-gyp path
       if: matrix.os == 'windows-latest'
-      run: |
-        npm config set node_gyp "..\node-gyp\bin\node-gyp.js"
+      run: npm config set node_gyp "../node-gyp/bin/node-gyp.js"
 
     - name: install dependencies
       run: yarn --frozen-lockfile
