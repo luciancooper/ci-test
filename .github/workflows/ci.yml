@@ -43,15 +43,27 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-yarn-
 
-    - name: get working directory path
-      id: repo-dir-path
-      run: echo "::set-output name=path::$($GITHUB_WORKSPACE)"
+    - name: echo-default-env-variables
+      run: |
+        echo "Home: ${HOME}"
+        echo "GITHUB_WORKFLOW: ${GITHUB_WORKFLOW}"
+        echo "GITHUB_ACTIONS: ${GITHUB_ACTIONS}"
+        echo "GITHUB_ACTOR: ${GITHUB_ACTOR}"
+        echo "GITHUB_REPOSITORY: ${GITHUB_REPOSITORY}"
+        echo "GITHUB_EVENT_NAME: ${GITHUB_EVENT_NAME}"
+        echo "GITHUB_WORKSPACE: ${GITHUB_WORKSPACE}"
+        echo "GITHUB_SHA: ${GITHUB_SHA}"
+        echo "GITHUB_REF: ${GITHUB_REF}"
 
-    - name: echo working directory path
-      run: echo "${{ steps.repo-dir-path.outputs.path }}"
+    - name: get node-gyp path
+      id: node-gyp-path
+      run: echo "::set-output name=path::$(npm prefix)/node_modules/node-gyp/bin/node-gyp.js"
 
-    - name: Set node-gyp path
-      run: npm config set node_gyp "${{ steps.repo-dir-path.outputs.path }}/node_modules/node-gyp/bin/node-gyp.js"
+    - name: echo node-gyp path
+      run: echo "${{ steps.node-gyp-path.outputs.path }}"
+
+    - name: set node-gyp path
+      run: npm config set node_gyp "${{ steps.node-gyp-path.outputs.path }}"
 
     - name: install dependencies
       run: yarn --frozen-lockfile
