@@ -43,15 +43,6 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-yarn-
 
-    - name: Update node-gyp
-      if: matrix.os == 'windows-latest'
-      run: |
-        $WhereNode = Get-Command node | Select-Object -ExpandProperty Definition
-        $NodeDirPath = Split-Path $WhereNode -Parent
-        $NodeModulesPath = $NodeDirPath + "\node_modules\npm\node_modules\npm-lifecycle"
-        cd $NodeModulesPath
-        npm install node-gyp@latest
-
     - name: Set node-gyp path
       if: matrix.os == 'windows-latest'
       run: |
