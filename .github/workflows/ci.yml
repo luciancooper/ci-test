@@ -47,6 +47,12 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
       if: matrix.os == 'windows-latest'
 
+    - name: set npm config on windows
+      if: matrix.os == 'windows-latest'
+      shell: powershell
+      run: |
+        npm config set msvs_version 2017
+
     - name: install dependencies
       run: yarn --frozen-lockfile
 
