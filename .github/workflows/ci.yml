@@ -43,11 +43,15 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-yarn-
 
+    - name: get working directory path
+      id: repo-dir-path
+      run: echo "::set-output name=path::$($GITHUB_WORKSPACE)"
+
+    - name: echo working directory path
+      run: echo "${{ steps.repo-dir-path.outputs.path }}"
+
     - name: Set node-gyp path
-      if: matrix.os == 'windows-latest'
-      run: |
-        echo "${{ env.GITHUB_WORKSPACE }}"
-        npm config set node_gyp "../node-gyp/bin/node-gyp.js"
+      run: npm config set node_gyp "${{ steps.repo-dir-path.outputs.path }}/node_modules/node-gyp/bin/node-gyp.js"
 
     - name: install dependencies
       run: yarn --frozen-lockfile
