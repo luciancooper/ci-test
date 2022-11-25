@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "github actions install tests",
   "scripts": {
+    "preinstall": "npm_config_node_gyp=\"$(npm prefix)/node_modules/node-gyp/bin/node-gyp.js\"",
     "test": "echo \"No tests specified\""
   },
   "engines": {

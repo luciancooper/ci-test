@@ -43,11 +43,8 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-yarn-
 
-    - name: set node-gyp path
-      run: |
-        echo "${GITHUB_WORKSPACE}/node_modules/node-gyp/bin/node-gyp.js"
-        npm config set node_gyp "$(npm prefix)/node_modules/node-gyp/bin/node-gyp.js"
-
+    # - name: set node-gyp path
+    #  run: npm config set node_gyp "$(npm prefix)/node_modules/node-gyp/bin/node-gyp.js"
 
     - name: install dependencies
       run: yarn --frozen-lockfile
