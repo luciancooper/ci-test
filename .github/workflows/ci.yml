@@ -41,7 +41,7 @@ jobs:
       run: npm config set node_gyp "$(npm prefix)/node_modules/node-gyp/bin/node-gyp.js"
 
     - name: install dependencies
-      run: yarn --frozen-lockfile
+      run: yarn --frozen-lockfile --verbose
 
     - name: run tests
       run: yarn test
