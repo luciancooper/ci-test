@@ -4,6 +4,7 @@
   "description": "github actions install tests",
   "scripts": {
     "test": "echo \"No tests specified\"",
+    "preinstall": "echo \"running 'preinstall' life cycle script\"",
     "install": "echo \"running 'install' life cycle script\"",
     "postinstall": "echo \"running 'postinstall' life cycle script\"",
     "prepare": "echo \"running 'prepare' life cycle script\""
