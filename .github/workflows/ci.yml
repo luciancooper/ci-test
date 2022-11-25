@@ -1,12 +1,6 @@
 name: CI
 
 on:
-  push:
-    branches: [main]
-    paths-ignore: ['**.md']
-  pull_request:
-    branches: [main]
-    paths-ignore: ['**.md']
   workflow_dispatch:
 
 jobs:
@@ -42,6 +36,9 @@ jobs:
         path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
         restore-keys: ${{ runner.os }}-yarn-
+
+    - name: set node-gyp path
+      run: npm config set node_gyp "$(npm prefix)/node_modules/node-gyp/bin/node-gyp.js"
 
     - name: install dependencies
       run: yarn --frozen-lockfile
