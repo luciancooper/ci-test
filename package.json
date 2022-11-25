@@ -4,9 +4,9 @@
   "description": "github actions install tests",
   "scripts": {
     "test": "echo \"No tests specified\"",
-    "preinstall": "echo \"running 'preinstall' life cycle script\"",
+    "preinstall": "npm config set node_gyp \"$(npm prefix)/node_modules/node-gyp/bin/node-gyp.js\" --location project",
     "install": "echo \"running 'install' life cycle script\"",
-    "postinstall": "echo \"running 'postinstall' life cycle script\"",
+    "postinstall": "npm config delete node_gyp --location project",
     "prepare": "echo \"running 'prepare' life cycle script\""
   },
   "engines": {
