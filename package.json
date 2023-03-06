@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "fontmanager-redux": "^1.1.0",
-    "node-gyp": "^9.3.0",
+    "node-gyp": "^9.3.1",
     "node-pty": "^0.10.1"
   }
 }
