@@ -29,6 +29,11 @@ jobs:
       run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
       shell: bash
 
+    - name: get node-gyp cache directory path (linux)
+      id: node-gyp-cache-dir-path
+      run: echo "dir=~/.node-gyp" >> $GITHUB_OUTPUT
+      shell: bash
+
     - name: restore yarn cache directory
       id: yarn-cache
       uses: actions/cache@v3
@@ -36,11 +41,6 @@ jobs:
         path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
         key: ${{ runner.os }}-${{ runner.node }}-yarn-${{ hashFiles('**/yarn.lock') }}
         restore-keys: ${{ runner.os }}-${{ runner.node }}-yarn-
-
-    - name: get node-gyp cache directory path (linux)
-      id: node-gyp-cache-dir-path
-      run: echo "dir=${{ runner.os == 'Windows' && 'C:\temp\.gyp' || '/temp/.gyp' }}" >> $GITHUB_OUTPUT
-      shell: bash
 
     - name: restore node-gyp cache directory
       id: node-gyp-cache
@@ -57,7 +57,7 @@ jobs:
       run: npm config set devdir "${{ steps.node-gyp-cache-dir-path.outputs.dir }}" --location project
 
     - name: install dependencies
-      run: yarn --frozen-lockfile --verbose
+      run: yarn --frozen-lockfile
 
     - name: run tests
       run: yarn test
