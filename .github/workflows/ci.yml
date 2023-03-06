@@ -24,37 +24,21 @@ jobs:
       with:
         node-version: ${{ matrix.node }}
 
-    - name: get yarn cache directory path
-      id: yarn-cache-dir-path
-      run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+    - name: get npm modules cache directory path
+      id: node_modules-cache-dir-path
+      run: echo "dir=$(npm prefix)/node_modules" >> $GITHUB_OUTPUT
       shell: bash
 
-    - name: get node-gyp cache directory path (linux)
-      id: node-gyp-cache-dir-path
-      run: echo "dir=~/.node-gyp" >> $GITHUB_OUTPUT
-      shell: bash
-
-    - name: restore yarn cache directory
-      id: yarn-cache
+    - name: restore node_modules cache directory
+      id: node_modules-cache
       uses: actions/cache@v3
       with:
-        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-        key: ${{ runner.os }}-${{ runner.node }}-yarn-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: ${{ runner.os }}-${{ runner.node }}-yarn-
-
-    - name: restore node-gyp cache directory
-      id: node-gyp-cache
-      uses: actions/cache@v3
-      with:
-        path: ${{ steps.node-gyp-cache-dir-path.outputs.dir }}
-        key: ${{ runner.os }}-${{ runner.node }}-node-gyp-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: ${{ runner.os }}-${{ runner.node }}-node-gyp-
+        path: ${{ steps.node_modules-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-${{ runner.node }}-node_modules-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: ${{ runner.os }}-${{ runner.node }}-node_modules-
 
     - name: set node-gyp path
       run: npm config set node_gyp "$(npm prefix)/node_modules/node-gyp/bin/node-gyp.js" --location project
-
-    - name: set node-gyp devdir
-      run: npm config set devdir "${{ steps.node-gyp-cache-dir-path.outputs.dir }}" --location project
 
     - name: install dependencies
       run: yarn --frozen-lockfile
