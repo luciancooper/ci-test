@@ -37,6 +37,19 @@ jobs:
         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
         restore-keys: ${{ runner.os }}-yarn-
 
+    - name: get node-gyp cache directory path
+      id: node-gyp-cache-dir-path
+      run: echo "dir=$(npm prefix)/node_modules/node-gyp/tmp/.gyp" >> $GITHUB_OUTPUT
+      shell: bash
+
+    - name: restore node-gyp cache directory
+      id: node-gyp-cache
+      uses: actions/cache@v3
+      with:
+        path: ${{ steps.node-gyp-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-node-gyp-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: ${{ runner.os }}-node-gyp-
+
     - name: set node-gyp path
       run: npm config set node_gyp "$(npm prefix)/node_modules/node-gyp/bin/node-gyp.js" --location project
 
