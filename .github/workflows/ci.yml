@@ -39,14 +39,7 @@ jobs:
 
     - name: get node-gyp cache directory path (linux)
       id: node-gyp-cache-dir-path
-      if: runner.os == 'Linux'
-      run: echo "dir=/temp/.gyp" >> $GITHUB_OUTPUT
-      shell: bash
-
-    - name: get node-gyp cache directory path (windows)
-      id: node-gyp-cache-dir-path
-      if: runner.os == 'Windows'
-      run: echo "dir=C:\temp\.gyp" >> $GITHUB_OUTPUT
+      run: echo "${{ runner.os == 'Windows' && 'C:\temp\.gyp' || 'dir=/temp/.gyp' }}" >> $GITHUB_OUTPUT
       shell: bash
 
     - name: restore node-gyp cache directory
