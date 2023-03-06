@@ -19,6 +19,7 @@
     "url": "git+https://github.com/luciancooper/ci-test.git"
   },
   "dependencies": {
+    "fontmanager-redux": "^1.1.0",
     "node-gyp": "^9.3.0",
     "node-pty": "^0.10.1"
   }
