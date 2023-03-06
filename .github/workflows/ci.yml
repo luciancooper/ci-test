@@ -40,6 +40,9 @@ jobs:
     - name: set node-gyp path
       run: npm config set node_gyp "$(npm prefix)/node_modules/node-gyp/bin/node-gyp.js" --location project
 
+    - name: set node-gyp devdir
+      run: npm config set devdir "$(npm prefix)/node_modules/node-gyp/tmp/.gyp" --location project
+
     - name: install dependencies
       run: yarn --frozen-lockfile
 
