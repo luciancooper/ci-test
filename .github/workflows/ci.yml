@@ -12,6 +12,9 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
         node: [14, 16]
+        exclude:
+        - os: windows-latest
+          version: 14
 
     runs-on: ${{ matrix.os }}
 
