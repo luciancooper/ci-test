@@ -48,7 +48,7 @@ jobs:
       shell: bash
 
     - name: set node-gyp path
-      run: npm config set node_gyp "$(npm prefix -g)/node_modules/node-gyp/bin/node-gyp.js"
+      run: npm config set node_gyp "$(npm prefix -g)/lib/node_modules/node-gyp/bin/node-gyp.js"
       shell: bash
 
     - name: install dependencies
