@@ -24,21 +24,26 @@ jobs:
       with:
         node-version: ${{ matrix.node }}
 
-    - name: get yarn cache directory path
-      id: yarn-cache-dir-path
-      run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-      shell: bash
+    #- name: get yarn cache directory path
+    #  id: yarn-cache-dir-path
+    #  run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+    #  shell: bash
 
-    - name: restore yarn cache directory
-      id: yarn-cache
-      uses: actions/cache@v3
-      with:
-        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: ${{ runner.os }}-yarn-
+    #- name: restore yarn cache directory
+    #  id: yarn-cache
+    #  uses: actions/cache@v3
+    #  with:
+    #    path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+    #    key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+    #    restore-keys: ${{ runner.os }}-yarn-
 
-    - name: set msvs_version
-      run: npm config set msvs_version 2017
+    #- name: set msvs_version
+    #  run: npm config set msvs_version 2017
+
+    - name: install node-gyp
+      run: |
+        npm install -g node-gyp
+        npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
 
     - name: install dependencies
       run: yarn --frozen-lockfile
