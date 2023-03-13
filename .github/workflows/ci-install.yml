@@ -37,8 +37,8 @@ jobs:
         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
         restore-keys: ${{ runner.os }}-yarn-
 
-    - name: set node-gyp path
-      run: npm config set node_gyp "$(npm prefix)/node_modules/node-gyp/bin/node-gyp.js"
+    - name: set msvs_version
+      run: npm config set msvs_version 2017
 
     - name: install dependencies
       run: yarn --frozen-lockfile
