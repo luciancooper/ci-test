@@ -42,13 +42,16 @@ jobs:
 
     - name: install node-gyp
       run: npm install -g node-gyp
+      if: matrix.os == 'windows-latest'
 
     - name: echo npm prefix
       run: echo "$(npm prefix -g)"
+      if: matrix.os == 'windows-latest'
       shell: bash
 
     - name: set node-gyp path
-      run: npm config set node_gyp "$(npm prefix -g)/lib/node_modules/node-gyp/bin/node-gyp.js"
+      run: npm config set node_gyp "$(npm prefix -g)/node_modules/node-gyp/bin/node-gyp.js"
+      if: matrix.os == 'windows-latest'
       shell: bash
 
     - name: install dependencies
